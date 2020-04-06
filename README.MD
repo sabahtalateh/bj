@@ -14,3 +14,8 @@ CREATE DATABASE bj;
 CREATE USER 'bj'@'%' IDENTIFIED BY '4195a0860b7a4782bfa9b842cae77d4d';
 GRANT ALL PRIVILEGES ON bj.* TO 'bj'@'%';
 ```
+
+#### Миграции
+```bash
+./vendor/bin/doctrine-migrations migrate --no-interaction
+```
