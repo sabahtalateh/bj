@@ -1,0 +1,9 @@
+
+
+return [
+    'dbname' => 'bj',
+    'user' => 'bj',
+    'password' => '4195a0860b7a4782bfa9b842cae77d4d',
+    'host' => 'localhost:33306',
+    'driver' => 'pdo_mysql',
+];
