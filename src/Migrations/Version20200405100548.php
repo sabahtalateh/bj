@@ -8,14 +8,22 @@ use App\Enum\TaskStatus;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 use Doctrine\Migrations\Version\Version;
+use Dotenv\Dotenv;
 use PDO;
 
 final class Version20200405100548 extends AbstractMigration
 {
+
     private PDO $pdo;
 
     public function __construct(Version $version)
     {
+        $dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
+        $dotenv->load();
+
+        dump(123);
+        die();
+
         parent::__construct($version);
         $this->pdo = new PDO(
             'mysql:host=127.0.0.1;dbname=bj;port=33306',
