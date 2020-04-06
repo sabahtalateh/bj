@@ -18,17 +18,21 @@ final class Version20200405100548 extends AbstractMigration
 
     public function __construct(Version $version)
     {
+        parent::__construct($version);
+
         $dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
         $dotenv->load();
 
-        dump(123);
-        die();
+        $dbName = $_ENV['DB_NAME'];
+        $dbUser = $_ENV['DB_USER'];
+        $dbPassword = $_ENV['DB_PASSWORD'];
+        $dbHost = $_ENV['DB_HOST'];
+        $dbPort = $_ENV['DB_PORT'];
 
-        parent::__construct($version);
         $this->pdo = new PDO(
-            'mysql:host=127.0.0.1;dbname=bj;port=33306',
-            'bj',
-            '4195a0860b7a4782bfa9b842cae77d4d',
+            "mysql:host=${dbHost};dbname=${dbName};port=${dbPort}",
+            $dbUser,
+            $dbPassword,
         );
     }
 
