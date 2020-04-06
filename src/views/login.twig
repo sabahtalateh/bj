@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>APP</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="center-align z-depth-1 grey lighten-4 row" style="max-width: 400px; padding: 16px 32px">
+        <form class="col s12" method="POST">
+            {% for error in errors %}
+                <span class="badge new waves-effect waves-light red lighten-2" data-badge-caption=""
+                      style="cursor: default; float: none">{{ error }}</span>
+            {% endfor %}
+            <div class='row'>
+                <div class='input-field col s12'>
+                    <input type='text' name='email' id='email'/>
+                    <label for='email'>Электронный ящик</label>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='input-field col s12'>
+                    <input type='password' name='password' id='password'/>
+                    <label for='password'>Пароль</label>
+                </div>
+            </div>
+            <div class='row'>
+                <button type='submit' name='btn_login' class='col s12 btn btn-large waves-effect indigo'>Войти</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

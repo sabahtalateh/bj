@@ -1,0 +1,37 @@
+{% extends 'master.twig' %}
+
+{% block content %}
+    <div class="center-align z-depth-1 grey lighten-4 row" style="max-width: 400px; padding: 16px 32px">
+        <form class="col s12" method="POST">
+            {% for error in errors %}
+                <span class="badge new waves-effect waves-light red lighten-2" data-badge-caption=""
+                      style="cursor: default; float: none">{{ error }}</span>
+            {% endfor %}
+            {% for message in messages %}
+                <span class="badge new waves-effect waves-light red lighten-2 indigo" data-badge-caption=""
+                      style="cursor: default; float: none">{{ message }}</span>
+            {% endfor %}
+            <div class='row'>
+                <div class="input-field col s12" style="margin-top: 28px;">
+                    <select name="assignee" id="assignee">
+                        <option value="" disabled selected>Выбрать отвественного</option>
+                        {% for assignee in assignees %}
+                            <option {% if task.assignee_id == assignee.id %}selected{% endif %}
+                                    value="{{ assignee.id }}">{{ assignee.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="assignee">Выбрать отвественного</label>
+                </div>
+                <div class="input-field col s12">
+                    <textarea id="description" name="description"
+                              class="materialize-textarea">{% if task %}{{ task.task_desc }}{% endif %}</textarea>
+                    <label for="description">Описание задачи</label>
+                </div>
+            </div>
+            <div class='row'>
+                <button type='submit' name='submit' class='col s12 btn btn-large waves-effect indigo'>Готово
+                </button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

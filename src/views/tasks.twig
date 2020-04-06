@@ -1,0 +1,88 @@
+{% extends 'master.twig' %}
+
+{% block content %}
+    <table>
+        <thead>
+        <tr>
+            <th>
+                <a href="?page={{ pagination.page }}&ord_c=task_desc&ord_d={% if ordC == 'task_desc' %}{% if ordD == 'DESC' %}ASC{% else %}DESC{% endif %}{% else %}DESC{% endif %}">
+                    Описание
+                    {% if ordC == 'task_desc' %}{% if ordD == 'ASC' %}<i
+                            class="material-icons">arrow_drop_up</i>{% else %}<i
+                            class="material-icons">arrow_drop_down</i>{% endif %}{% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="?page={{ pagination.page }}&ord_c=user_name&ord_d={% if ordC == 'user_name' %}{% if ordD == 'DESC' %}ASC{% else %}DESC{% endif %}{% else %}DESC{% endif %}">
+                    Имя Исполнителя
+                    {% if ordC == 'user_name' %}{% if ordD == 'ASC' %}<i
+                            class="material-icons">arrow_drop_up</i>{% else %}<i
+                            class="material-icons">arrow_drop_down</i>{% endif %}{% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="?page={{ pagination.page }}&ord_c=user_email&ord_d={% if ordC == 'user_email' %}{% if ordD == 'DESC' %}ASC{% else %}DESC{% endif %}{% else %}DESC{% endif %}">
+                    Email Исполнителя
+                    {% if ordC == 'user_email' %}{% if ordD == 'ASC' %}<i
+                            class="material-icons">arrow_drop_up</i>{% else %}<i
+                            class="material-icons">arrow_drop_down</i>{% endif %}{% endif %}
+                </a>
+            </th>
+            {% if user.is_admin %}
+                <th><i class="material-icons">create</i></th>
+            {% endif %}
+            <th>
+                <a href="?page={{ pagination.page }}&ord_c=task_status&ord_d={% if ordC == 'task_status' %}{% if ordD == 'DESC' %}ASC{% else %}DESC{% endif %}{% else %}DESC{% endif %}">
+                    Статус
+                    {% if ordC == 'task_status' %}{% if ordD == 'ASC' %}<i
+                            class="material-icons">arrow_drop_up</i>{% else %}<i
+                            class="material-icons">arrow_drop_down</i>{% endif %}{% endif %}
+                </a>
+            </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for task in tasks %}
+            <tr {% if task.task_status == 'DONE' %} style="color: seagreen" {% endif %}>
+                <td>
+                    {% if task.task_modified %}
+                        <i style="font-size: 14px; color: darkgrey" class="material-icons">create</i>
+                    {% endif %}
+                    {{ task.task_desc }}
+                </td>
+                <td>{{ task.user_name }}</td>
+                <td>{{ task.user_email }}</td>
+                {% if user.is_admin %}
+                    <td><a href="/edit/{{ task.task_id }}"><i class="material-icons">create</i></a></td>
+                {% endif %}
+                {% if task.task_status == 'IN_PROGRESS' %}
+                    <td>
+                        {% if user.is_admin %}
+                            <a href="/toggle/{{ task.task_id }}"><i class="material-icons">work</i></a>
+                        {% else %}
+                            <i class="material-icons">work</i>
+                        {% endif %}
+                    </td>
+                {% else %}
+                    <td>
+                        {% if user.is_admin %}
+                            <a href="/toggle/{{ task.task_id }}"><i class="material-icons">done</i></a>
+                        {% else %}
+                            <i class="material-icons">done</i>
+                        {% endif %}
+                    </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div style="position: relative">
+        <a class="btn-floating btn-large waves-effect waves-light red indigo" style="margin-top: -24px; float: right"
+           href="/add">
+            <i class="material-icons">add</i>
+        </a>
+    </div>
+
+    {% include 'blocks/pagination.twig' %}
+{% endblock %}
