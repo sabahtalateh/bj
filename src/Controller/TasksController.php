@@ -41,9 +41,6 @@ class TasksController extends BaseController
     public function add(array $params)
     {
         $user = $this->getLoggedInUser($params['_token']);
-        if (!$user || !$user['is_admin']) {
-            return new Response('/', Response::HTTP_NOT_FOUND);
-        }
 
         /** @var UserService $userService */
         $userService = $this->get(USER_SERVICE);
